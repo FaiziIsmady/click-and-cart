@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-w-e0f)az)((+s8s#aj)dsli59##yazxnk(19!uk_v$l8xnlv(8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "muhammad-faizi-clickandcart.pbp.cs.ui.ac.id"]
 
 
 # Application definition
