@@ -1,11 +1,11 @@
 # click-and-cart 
-Nama : Muhammad Faizi Ismady Supardjo
-NPM : 2306244955
-Kelas : PBP C
+**Nama : Muhammad Faizi Ismady Supardjo**
+**NPM : 2306244955**
+**Kelas : PBP C**
 
-Tautan menuju PWS yang sudah di deploy : "http://muhammad-faizi-clickandcart.pbp.cs.ui.ac.id"
+**Tautan menuju PWS yang sudah di deploy :** "http://muhammad-faizi-clickandcart.pbp.cs.ui.ac.id"
 
-1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+**1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
 
     1.1. Membuat direktori dan mengaktifkan virtual environment
         - Buat direktori (folder) baru bernama sama dengan nama produk (dalam kasus ini click-and-cart)
@@ -113,13 +113,13 @@ Tautan menuju PWS yang sudah di deploy : "http://muhammad-faizi-clickandcart.pbp
     1.9. Membuat sebuah README.md yang berisi tautan menuju aplikasi PWS yang sudah di-deploy, serta jawaban dari beberapa pertanyaan berikut. (checklist 7)
         - Buat file README.md pada direktori click-and-cart terluar dan isi sesuai dengan Tugas 2 PBP.
 
-2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+**2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.**
 
     ![Screenshot 2024-09-11 071719](https://github.com/user-attachments/assets/2033f79d-990b-4ecb-9559-4e9fd6eed75d)
 
     Apabila klien/user mengirim HTTP request melalui web platform, address HTTP yang dikirim klien akan di cek sesuai atau tidak pada file urls.py. Jika tidak sesuai akan return page not found, jika sesuai, dilanjutkan ke file views.py yang memperoleh data dari models.py berisi atribut-atribut. Setelah itu, data dan atribut akan di proses di template yang berisi main.html. Lalu, setelah data sudah ada di dalam template, template akan menghasilkan respon ke web platform, menampilkan tampilan web pada views.py
 
-3. Jelaskan fungsi git dalam pengembangan perangkat lunak!
+**3. Jelaskan fungsi git dalam pengembangan perangkat lunak!**
     3.1. Melacak perubahan kode
     Git dapat melacak perubahan kode yang dilakukan selama proses development. Setiap kali ingin melakukan perubahan dan disimpan di Git (add commit push), Git memiliki log versi sebelum update dan sesudah update sehingga memudahkan melihat perubahan kode.
 
@@ -132,7 +132,7 @@ Tautan menuju PWS yang sudah di deploy : "http://muhammad-faizi-clickandcart.pbp
     3.4. Backup File
     Karena Git melacak perubahan kode (file) maka dapat menjadi tempat backup file apabila terjadi error.
 
-4. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+**4. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?**
     Alasan Django menjadi permulaan pembelajaran PBP adalah Django cocok untuk pemula, beberapa alasan diantaranya yakni:
     4.1. Menyediakan Struktur yang Terorganisir
     MTV (Model-Template-View) memberikan struktur yang jelas dan terorganisir untuk pengembangan aplikasi web. Pemula dapat memahami bagaimana bagian-bagian aplikasi bekerja sama, seperti:
@@ -151,7 +151,7 @@ Tautan menuju PWS yang sudah di deploy : "http://muhammad-faizi-clickandcart.pbp
     4.5. Keamanan
     Django relatif aman terhadap ancaman siber umum.
 
-5. Mengapa model pada Django disebut sebagai ORM?
+**5. Mengapa model pada Django disebut sebagai ORM?**
     Alasan model pada Django disebut ORM (Object-Relational Mapping) adalah karena Django memungkinkan developer untuk berhubungan dengan data base pada kode python. Django berfungsi sebagai penghubung antara objek-objek dalam kode dan data dalam data base. Dengan ORM kita dapat membuat data base menggunakan Python (dictionary dalam kasus proyek ini) dan otomatis menghasilkan pernyataan SQL untuk dapat berhubungan dengan data base model.
 
 
