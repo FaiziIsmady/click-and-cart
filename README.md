@@ -8,14 +8,14 @@
 **1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
 
 1.1. Membuat direktori dan mengaktifkan virtual environment
-        - Buat direktori (folder) baru bernama sama dengan nama produk (dalam kasus ini click-and-cart)
+<b>- Buat direktori (folder) baru bernama sama dengan nama produk (dalam kasus ini click-and-cart)
 
-        - Gunakan IDE seperti vscode atau terminal. Buka direktori yang sudah dibuat dan jalankan perintah "python -m venv env" untuk membuat virtual environment
+- Gunakan IDE seperti vscode atau terminal. Buka direktori yang sudah dibuat dan jalankan perintah "python -m venv env" untuk membuat virtual environment
 
-        - Jalankan virtual environment dengan perintah "env\Scripts\activate". Jika venv berhasil aktif, akan ada (env) di depan baris terminal
+- Jalankan virtual environment dengan perintah "env\Scripts\activate". Jika venv berhasil aktif, akan ada (env) di depan baris terminal
 
 1.2. Membuat projek Django (checklist 1)
-        - Di dalam direktori click-and-cart buat file requirements.txt dan isi dengan
+<b>- Di dalam direktori click-and-cart buat file requirements.txt dan isi dengan
         django
         gunicorn
         whitenoise
@@ -23,21 +23,21 @@
         requests
         urllib3
 
-        - Install dependencies dengan perintah "pip install -r requirements.txt"
+- Install dependencies dengan perintah "pip install -r requirements.txt"
 
-        - Buat projek django bernama click_and_cart dengan perintah "django-admin startproject click_and_cart ." yang berfungsi membuat folder bernama proyek tersebut dengan isi file bawaan dari django
+- Buat projek django bernama click_and_cart dengan perintah "django-admin startproject click_and_cart ." yang berfungsi membuat folder bernama proyek tersebut dengan isi file bawaan dari django
 
-        - Tambahkan string pada ALLOWED_HOSTS di settings.py direktori click_and_cart 
+- Tambahkan string pada ALLOWED_HOSTS di settings.py direktori click_and_cart 
         ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
-        -  Membuat berkas .gitignore untuk menentukan file yang tidak ingin dimasukkan ke dalam versi kontrol Git
+-  Membuat berkas .gitignore untuk menentukan file yang tidak ingin dimasukkan ke dalam versi kontrol Git
 
 1.3. Membuat aplikasi bernama main pada proyek (checklist 2)
-        - Buat aplikasi bernama main dengan perintah berikut "python manage.py startapp main" di dalam direktori
-        - Tambahkan 'main' kedalam INSTALLED_APPS pada file settings.py. Main merefer ke file html yakni main.html
+<b>- Buat aplikasi bernama main dengan perintah berikut "python manage.py startapp main" di dalam direktori
+<b>- Tambahkan 'main' kedalam INSTALLED_APPS pada file settings.py. Main merefer ke file html yakni main.html
 
 1.4. Melakukan routing pada proyek agar dapat menjalankan aplikasi main (checklist 3)
-        - Melakukan routing dengan menambahkan kode ini dalam urls.py
+<b>- Melakukan routing dengan menambahkan kode ini dalam urls.py
         from django.contrib import admin
         from django.urls import path
         from django.urls import path, include
@@ -48,7 +48,7 @@
         ]
 
 1.5. Membuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib name, price, dan description (checklist4)
-        - Isi models.py dengan kode berikut
+<b>- Isi models.py dengan kode berikut
         from django.db import models
 
         class Product(models.Model):
@@ -57,10 +57,10 @@
             description = models.TextField()
             quantity = models.IntegerField()
 
-        Note: atribut quantity opsional
+Note: atribut quantity opsional
 
 1.6. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas. (checklist 5)
-        - Isi file views.py dengan kode berikut untuk dapat dikembalikan ke main.html
+<b>- Isi file views.py dengan kode berikut untuk dapat dikembalikan ke main.html
         from django.shortcuts import render
 
         # Create your views here
@@ -74,7 +74,7 @@
 
             return render(request, "main.html", context)
 
-        - Isi file main.html dengan kode berikut
+- Isi file main.html dengan kode berikut
         <h1>Click and Cart</h1>
         <h3>oleh Muhammad Faizi Ismady Supardjo, kelas PBP C, NPM 2306244955</h3>
 
@@ -88,7 +88,7 @@
         <p>{{ description }}<p>
 
 1.7. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py. (checklist 6)
-        - Isi file urls.py pada direktori main dengan kode berikut agar dapat menghubungkan views.py di dalam direktori main dengan urls.py
+<b>- Isi file urls.py pada direktori main dengan kode berikut agar dapat menghubungkan views.py di dalam direktori main dengan urls.py
         from django.urls import path
         from main.views import show_main
 
@@ -99,19 +99,19 @@
         ]
 
 1.8. Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
-        - Buka laman PWS, jika belum memiliki akun register jika sudah login
+<b>- Buka laman PWS, jika belum memiliki akun register jika sudah login
 
-        - Buat proyek baru pada website PWS dengan menekan tombol Create New Project. Lalu, isi Project Name dengan clickandcart. setelah itu, tekan Create New Project.
+- Buat proyek baru pada website PWS dengan menekan tombol Create New Project. Lalu, isi Project Name dengan clickandcart. setelah itu, tekan Create New Project.
 
-        - Akan muncul string credentials yang perlu kita simpan sendiri karena tidak dapat dilihat lagi.
+- Akan muncul string credentials yang perlu kita simpan sendiri karena tidak dapat dilihat lagi.
 
-        - Pada settings.py di proyek Django, tambahkan URL deployment PWS pada ALLOWED_HOSTS. Isi ALLOWED_HOSTS menjadi
+- Pada settings.py di proyek Django, tambahkan URL deployment PWS pada ALLOWED_HOSTS. Isi ALLOWED_HOSTS menjadi
         ALLOWED_HOSTS = ["localhost", "127.0.0.1", "muhammad-faizi-clickandcart.pbp.cs.ui.ac.id"]
 
-        - Buat repositori github bernama click-and-cart. Lalu add commit dan push perubahan kedalam repositori tersebut. Jalankan perintah project command yang terlihat di website PWS. Terakhir lakukan command berikut "git push pws main" yang berfungsi push dari github ke pws. Jika PWS tidak error, seharusnya projek sudah berhasil di launch.
+- Buat repositori github bernama click-and-cart. Lalu add commit dan push perubahan kedalam repositori tersebut. Jalankan perintah project command yang terlihat di website PWS. Terakhir lakukan command berikut "git push pws main" yang berfungsi push dari github ke pws. Jika PWS tidak error, seharusnya projek sudah berhasil di launch.
 
 1.9. Membuat sebuah README.md yang berisi tautan menuju aplikasi PWS yang sudah di-deploy, serta jawaban dari beberapa pertanyaan berikut. (checklist 7)
-        - Buat file README.md pada direktori click-and-cart terluar dan isi sesuai dengan Tugas 2 PBP.
+<b>- Buat file README.md pada direktori click-and-cart terluar dan isi sesuai dengan Tugas 2 PBP.
 
 **2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.**
 
