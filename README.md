@@ -14,8 +14,8 @@
 
 - Jalankan virtual environment dengan perintah "env\Scripts\activate". Jika venv berhasil aktif, akan ada (env) di depan baris terminal
 
-1.2. Membuat projek Django (checklist 1)
-<br>- Di dalam direktori click-and-cart buat file requirements.txt dan isi dengan
+1.2. Membuat projek Django (checklist 1)<br>
+- Di dalam direktori click-and-cart buat file requirements.txt dan isi dengan
         django
         gunicorn
         whitenoise
@@ -32,12 +32,12 @@
 
 -  Membuat berkas .gitignore untuk menentukan file yang tidak ingin dimasukkan ke dalam versi kontrol Git
 
-1.3. Membuat aplikasi bernama main pada proyek (checklist 2)
-<br>- Buat aplikasi bernama main dengan perintah berikut "python manage.py startapp main" di dalam direktori
-<br>- Tambahkan 'main' kedalam INSTALLED_APPS pada file settings.py. Main merefer ke file html yakni main.html
+1.3. Membuat aplikasi bernama main pada proyek (checklist 2)<br>
+- Buat aplikasi bernama main dengan perintah berikut "python manage.py startapp main" di dalam direktori
+- Tambahkan 'main' kedalam INSTALLED_APPS pada file settings.py. Main merefer ke file html yakni main.html
 
-1.4. Melakukan routing pada proyek agar dapat menjalankan aplikasi main (checklist 3)
-<br>- Melakukan routing dengan menambahkan kode ini dalam urls.py
+1.4. Melakukan routing pada proyek agar dapat menjalankan aplikasi main (checklist 3)<br>
+- Melakukan routing dengan menambahkan kode ini dalam urls.py
         from django.contrib import admin
         from django.urls import path
         from django.urls import path, include
@@ -47,8 +47,8 @@
             path('admin/', admin.site.urls), path('', include('main.urls'))
         ]
 
-1.5. Membuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib name, price, dan description (checklist4)
-<br>- Isi models.py dengan kode berikut
+1.5. Membuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib name, price, dan description (checklist4)<br>
+- Isi models.py dengan kode berikut
         from django.db import models
 
         class Product(models.Model):
@@ -59,8 +59,8 @@
 
 Note: atribut quantity opsional
 
-1.6. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas. (checklist 5)
-<br>- Isi file views.py dengan kode berikut untuk dapat dikembalikan ke main.html
+1.6. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas. (checklist 5)<br>
+- Isi file views.py dengan kode berikut untuk dapat dikembalikan ke main.html
         from django.shortcuts import render
 
         # Create your views here
@@ -75,8 +75,8 @@ Note: atribut quantity opsional
             return render(request, "main.html", context)
 
 - Isi file main.html dengan kode berikut
-        <h1>Click and Cart</h1>
-        <h3>oleh Muhammad Faizi Ismady Supardjo, kelas PBP C, NPM 2306244955</h3>
+        <!-- <h1>Click and Cart</h1> -->
+        <!-- <h3>oleh Muhammad Faizi Ismady Supardjo, kelas PBP C, NPM 2306244955</h3> -->
 
         <h5>Name: </h5>
         <p>{{ name }}<p>
@@ -86,9 +86,10 @@ Note: atribut quantity opsional
         <p>{{ quantity }}<p>
         <h5>Description: </h5>
         <p>{{ description }}<p>
+Note: <!-- --> adalah komen pada HTML
 
-1.7. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py. (checklist 6)
-<br>- Isi file urls.py pada direktori main dengan kode berikut agar dapat menghubungkan views.py di dalam direktori main dengan urls.py
+1.7. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py. (checklist 6) <br>
+- Isi file urls.py pada direktori main dengan kode berikut agar dapat menghubungkan views.py di dalam direktori main dengan urls.py
         from django.urls import path
         from main.views import show_main
 
@@ -98,8 +99,8 @@ Note: atribut quantity opsional
             path('', show_main, name='show_main'),
         ]
 
-1.8. Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
-<br>- Buka laman PWS, jika belum memiliki akun register jika sudah login
+1.8. Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet. <br>
+- Buka laman PWS, jika belum memiliki akun register jika sudah login
 
 - Buat proyek baru pada website PWS dengan menekan tombol Create New Project. Lalu, isi Project Name dengan clickandcart. setelah itu, tekan Create New Project.
 
@@ -110,8 +111,8 @@ Note: atribut quantity opsional
 
 - Buat repositori github bernama click-and-cart. Lalu add commit dan push perubahan kedalam repositori tersebut. Jalankan perintah project command yang terlihat di website PWS. Terakhir lakukan command berikut "git push pws main" yang berfungsi push dari github ke pws. Jika PWS tidak error, seharusnya projek sudah berhasil di launch.
 
-1.9. Membuat sebuah README.md yang berisi tautan menuju aplikasi PWS yang sudah di-deploy, serta jawaban dari beberapa pertanyaan berikut. (checklist 7)
-<br>- Buat file README.md pada direktori click-and-cart terluar dan isi sesuai dengan Tugas 2 PBP.
+1.9. Membuat sebuah README.md yang berisi tautan menuju aplikasi PWS yang sudah di-deploy, serta jawaban dari beberapa pertanyaan berikut. (checklist 7)<br>
+- Buat file README.md pada direktori click-and-cart terluar dan isi sesuai dengan Tugas 2 PBP.
 
 **2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.**
 
