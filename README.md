@@ -3,8 +3,7 @@ Nama : Muhammad Faizi Ismady Supardjo
 NPM : 2306244955
 Kelas : PBP C
 
-Tautan menuju PWS yang sudah di deploy :
-[Click and Cart]("http://muhammad-faizi-clickandcart.pbp.cs.ui.ac.id")
+Tautan menuju PWS yang sudah di deploy : "http://muhammad-faizi-clickandcart.pbp.cs.ui.ac.id"
 
 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
