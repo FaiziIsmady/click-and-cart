@@ -75,8 +75,8 @@ Note: atribut quantity opsional
             return render(request, "main.html", context)
 
 - Isi file main.html dengan kode berikut
-        <!-- <h1>Click and Cart</h1> -->
-        <!-- <h3>oleh Muhammad Faizi Ismady Supardjo, kelas PBP C, NPM 2306244955</h3> -->
+        <h1>Click and Cart</h1>
+        <h3>oleh Muhammad Faizi Ismady Supardjo, kelas PBP C, NPM 2306244955</h3>
 
         <h5>Name: </h5>
         <p>{{ name }}<p>
@@ -86,7 +86,7 @@ Note: atribut quantity opsional
         <p>{{ quantity }}<p>
         <h5>Description: </h5>
         <p>{{ description }}<p>
-Note: <!-- --> adalah komen pada HTML
+Note: adalah komen pada HTML "<!-- -->"
 
 1.7. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py. (checklist 6) <br>
 - Isi file urls.py pada direktori main dengan kode berikut agar dapat menghubungkan views.py di dalam direktori main dengan urls.py
