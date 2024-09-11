@@ -15,7 +15,7 @@
         - Jalankan virtual environment dengan perintah "env\Scripts\activate". Jika venv berhasil aktif, akan ada (env) di depan baris terminal
 
     1.2. Membuat projek Django (checklist 1)
-        - Di dalam direktori click-and-cart buat file requirements.txt dan isi dengan
+        - Di dalam direktori click-and-cart buat file 'requirements.txt' dan isi dengan
         django
         gunicorn
         whitenoise
@@ -115,7 +115,7 @@
 
 **2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.**
 
-    ![Screenshot 2024-09-11 071719](https://github.com/user-attachments/assets/2033f79d-990b-4ecb-9559-4e9fd6eed75d)
+![Screenshot 2024-09-11 071719](https://github.com/user-attachments/assets/2033f79d-990b-4ecb-9559-4e9fd6eed75d)
 
     Apabila klien/user mengirim HTTP request melalui web platform, address HTTP yang dikirim klien akan di cek sesuai atau tidak pada file urls.py. Jika tidak sesuai akan return page not found, jika sesuai, dilanjutkan ke file views.py yang memperoleh data dari models.py berisi atribut-atribut. Setelah itu, data dan atribut akan di proses di template yang berisi main.html. Lalu, setelah data sudah ada di dalam template, template akan menghasilkan respon ke web platform, menampilkan tampilan web pada views.py
 
