@@ -7,14 +7,14 @@
 
 **1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
 
-    1.1. Membuat direktori dan mengaktifkan virtual environment
+1.1. Membuat direktori dan mengaktifkan virtual environment
         - Buat direktori (folder) baru bernama sama dengan nama produk (dalam kasus ini click-and-cart)
 
         - Gunakan IDE seperti vscode atau terminal. Buka direktori yang sudah dibuat dan jalankan perintah "python -m venv env" untuk membuat virtual environment
 
         - Jalankan virtual environment dengan perintah "env\Scripts\activate". Jika venv berhasil aktif, akan ada (env) di depan baris terminal
 
-    1.2. Membuat projek Django (checklist 1)
+1.2. Membuat projek Django (checklist 1)
         - Di dalam direktori click-and-cart buat file requirements.txt dan isi dengan
         django
         gunicorn
@@ -32,11 +32,11 @@
 
         -  Membuat berkas .gitignore untuk menentukan file yang tidak ingin dimasukkan ke dalam versi kontrol Git
 
-    1.3. Membuat aplikasi bernama main pada proyek (checklist 2)
+1.3. Membuat aplikasi bernama main pada proyek (checklist 2)
         - Buat aplikasi bernama main dengan perintah berikut "python manage.py startapp main" di dalam direktori
         - Tambahkan 'main' kedalam INSTALLED_APPS pada file settings.py. Main merefer ke file html yakni main.html
 
-    1.4. Melakukan routing pada proyek agar dapat menjalankan aplikasi main (checklist 3)
+1.4. Melakukan routing pada proyek agar dapat menjalankan aplikasi main (checklist 3)
         - Melakukan routing dengan menambahkan kode ini dalam urls.py
         from django.contrib import admin
         from django.urls import path
@@ -47,7 +47,7 @@
             path('admin/', admin.site.urls), path('', include('main.urls'))
         ]
 
-    1.5. Membuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib name, price, dan description (checklist4)
+1.5. Membuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib name, price, dan description (checklist4)
         - Isi models.py dengan kode berikut
         from django.db import models
 
@@ -59,7 +59,7 @@
 
         Note: atribut quantity opsional
 
-    1.6. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas. (checklist 5)
+1.6. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas. (checklist 5)
         - Isi file views.py dengan kode berikut untuk dapat dikembalikan ke main.html
         from django.shortcuts import render
 
@@ -87,7 +87,7 @@
         <h5>Description: </h5>
         <p>{{ description }}<p>
 
-    1.7. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py. (checklist 6)
+1.7. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py. (checklist 6)
         - Isi file urls.py pada direktori main dengan kode berikut agar dapat menghubungkan views.py di dalam direktori main dengan urls.py
         from django.urls import path
         from main.views import show_main
@@ -98,7 +98,7 @@
             path('', show_main, name='show_main'),
         ]
 
-    1.8. Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
+1.8. Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
         - Buka laman PWS, jika belum memiliki akun register jika sudah login
 
         - Buat proyek baru pada website PWS dengan menekan tombol Create New Project. Lalu, isi Project Name dengan clickandcart. setelah itu, tekan Create New Project.
@@ -110,7 +110,7 @@
 
         - Buat repositori github bernama click-and-cart. Lalu add commit dan push perubahan kedalam repositori tersebut. Jalankan perintah project command yang terlihat di website PWS. Terakhir lakukan command berikut "git push pws main" yang berfungsi push dari github ke pws. Jika PWS tidak error, seharusnya projek sudah berhasil di launch.
 
-    1.9. Membuat sebuah README.md yang berisi tautan menuju aplikasi PWS yang sudah di-deploy, serta jawaban dari beberapa pertanyaan berikut. (checklist 7)
+1.9. Membuat sebuah README.md yang berisi tautan menuju aplikasi PWS yang sudah di-deploy, serta jawaban dari beberapa pertanyaan berikut. (checklist 7)
         - Buat file README.md pada direktori click-and-cart terluar dan isi sesuai dengan Tugas 2 PBP.
 
 **2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.**
@@ -121,39 +121,40 @@ Apabila klien/user mengirim HTTP request melalui web platform, address HTTP yang
 
 **3. Jelaskan fungsi git dalam pengembangan perangkat lunak!**
 
-    3.1. Melacak perubahan kode
+<br>3.1. Melacak perubahan kode
     Git dapat melacak perubahan kode yang dilakukan selama proses development. Setiap kali ingin melakukan perubahan dan disimpan di Git (add commit push), Git memiliki log versi sebelum update dan sesudah update sehingga memudahkan melihat perubahan kode.
 
-    3.2. Memudahkan kolaborasi
+3.2. Memudahkan kolaborasi
     Git membuat developer dapat bekerja pada proyek yang sama tanpa mengganggu bagian (fitur) satu sama lain. Untuk menggabung perubahan git mengatur proses "merging".
 
-    3.3. Branching
+3.3. Branching
     Git membuat developer dapat membuat branch (cabang), yang merupakan copy dari kode utama. Hal ini memungkinkan developer untuk mengetes fitur seperti update, debug, dll yabg kemudian dapat digabungkan kembali ke cabang utama.
 
-    3.4. Backup File
+3.4. Backup File
     Karena Git melacak perubahan kode (file) maka dapat menjadi tempat backup file apabila terjadi error.
 
 **4. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?**
-    Alasan Django menjadi permulaan pembelajaran PBP adalah Django cocok untuk pemula, beberapa alasan diantaranya yakni:
-    4.1. Menyediakan Struktur yang Terorganisir
+<br>Alasan Django menjadi permulaan pembelajaran PBP adalah Django cocok untuk pemula, beberapa alasan diantaranya yakni:
+
+<br>4.1. Menyediakan Struktur yang Terorganisir
     MTV (Model-Template-View) memberikan struktur yang jelas dan terorganisir untuk pengembangan aplikasi web. Pemula dapat memahami bagaimana bagian-bagian aplikasi bekerja sama, seperti:
-        - Model untuk interaksi dengan database (ORM),
-        - View untuk mengelola logika aplikasi,
-        - Template untuk menyusun tampilan front-end.
+    - Model untuk interaksi dengan database (ORM),
+    - View untuk mengelola logika aplikasi,
+    - Template untuk menyusun tampilan front-end.
 
-    4.2. Memiliki banyak built in features
+4.2. Memiliki banyak built in features
 
-    4.3. Menggunakan Python
+4.3. Menggunakan Python
     Selain python yang bahasanya relatif mudah dipelajari, kita sudah belajar python pada semester 1 sehingga memudahkan pembelajaran PBP.
 
-    4.4. Skalabel dan Fleksibel
+4.4. Skalabel dan Fleksibel
     Django dapat digunakan baik untuk proyek kecil maupun besar.
 
-    4.5. Keamanan
+4.5. Keamanan
     Django relatif aman terhadap ancaman siber umum.
 
 **5. Mengapa model pada Django disebut sebagai ORM?**
-    Alasan model pada Django disebut ORM (Object-Relational Mapping) adalah karena Django memungkinkan developer untuk berhubungan dengan data base pada kode python. Django berfungsi sebagai penghubung antara objek-objek dalam kode dan data dalam data base. Dengan ORM kita dapat membuat data base menggunakan Python (dictionary dalam kasus proyek ini) dan otomatis menghasilkan pernyataan SQL untuk dapat berhubungan dengan data base model.
+<br>Alasan model pada Django disebut ORM (Object-Relational Mapping) adalah karena Django memungkinkan developer untuk berhubungan dengan data base pada kode python. Django berfungsi sebagai penghubung antara objek-objek dalam kode dan data dalam data base. Dengan ORM kita dapat membuat data base menggunakan Python (dictionary dalam kasus proyek ini) dan otomatis menghasilkan pernyataan SQL untuk dapat berhubungan dengan data base model.
 
 
 
