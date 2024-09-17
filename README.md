@@ -1,14 +1,19 @@
-# click-and-cart 
+# click-and-cart
+
+## Data Diri
 **Nama : Muhammad Faizi Ismady Supardjo**
 **NPM : 2306244955**
 **Kelas : PBP C**
 
+## Link Produk
 **Tautan menuju PWS yang sudah di deploy :** "http://muhammad-faizi-clickandcart.pbp.cs.ui.ac.id"
+
+# Tugas 2
 
 **1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
 
 1.1. Membuat direktori dan mengaktifkan virtual environment<br>
-- Buat direktori (folder) baru bernama sama dengan nama produk (dalam kasus ini click-and-cart)
+- Buat direktori (folder) baru bernama sama dengan nama produk (dalam kasus ini 'click-and-cart')
 
 - Gunakan IDE seperti vscode atau terminal. Buka direktori yang sudah dibuat dan jalankan perintah "python -m venv env" untuk membuat virtual environment
 
@@ -156,5 +161,15 @@ Pada Django, apabila klien/user mengirim HTTP request melalui web platform, requ
 **5. Mengapa model pada Django disebut sebagai ORM?**
 <br>Alasan model pada Django disebut ORM (Object-Relational Mapping) adalah karena Django memungkinkan developer untuk berhubungan dengan data base pada kode python. Django berfungsi sebagai penghubung antara objek-objek dalam kode dan data dalam data base. Dengan ORM kita dapat membuat data base menggunakan Python (dictionary dalam kasus proyek ini) dan otomatis menghasilkan pernyataan SQL untuk dapat berhubungan dengan data base model.
 
+# Tugas 3
+**1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?**
+
+**2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?**
+
+**3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?**
+
+**4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?**
+
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
 
 
