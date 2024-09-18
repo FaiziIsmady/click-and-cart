@@ -21,19 +21,23 @@
 
 1.2. Membuat projek Django (checklist 1)<br>
 - Di dalam direktori `click-and-cart` buat file `requirements.txt` dan isi dengan
+```bash
     django
     gunicorn
     whitenoise
     psycopg2-binary
     requests
     urllib3
+```
 
 - Install dependencies dengan perintah "pip install -r requirements.txt"
 
 - Buat projek django bernama click_and_cart dengan perintah "django-admin startproject click_and_cart ." yang berfungsi membuat folder bernama proyek tersebut dengan isi file bawaan dari django
 
 - Tambahkan string pada ALLOWED_HOSTS di settings.py direktori click_and_cart 
-        ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+```bash
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+```
 
 -  Membuat berkas .gitignore untuk menentukan file yang tidak ingin dimasukkan ke dalam versi kontrol Git
 
@@ -43,65 +47,75 @@
 
 1.4. Melakukan routing pada proyek agar dapat menjalankan aplikasi main (checklist 3)<br>
 - Melakukan routing dengan menambahkan kode ini dalam urls.py
-        from django.contrib import admin
-        from django.urls import path
-        from django.urls import path, include
+```bash
+    from django.contrib import admin
+    from django.urls import path
+    from django.urls import path, include
 
-        urlpatterns = [
-            path('', include('main.urls')),
-            path('admin/', admin.site.urls), path('', include('main.urls'))
-        ]
+    urlpatterns = [
+        path('', include('main.urls')),
+        path('admin/', admin.site.urls), path('', include('main.urls'))
+    ]
+```
 
 1.5. Membuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib name, price, dan description (checklist4)<br>
 - Isi models.py dengan kode berikut
-        from django.db import models
+```bash
+    from django.db import models
 
-        class Product(models.Model):
-            name = models.CharField(max_length=255)
-            price = models.IntegerField()
-            description = models.TextField()
-            quantity = models.IntegerField()
+    class Product(models.Model):
+        name = models.CharField(max_length=255)
+        price = models.IntegerField()
+        description = models.TextField()
+        quantity = models.IntegerField()
+```
 
 Note: atribut quantity opsional
 
 1.6. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas. (checklist 5)<br>
 - Isi file views.py dengan kode berikut untuk dapat dikembalikan ke main.html
-        from django.shortcuts import render
+```bash
+    from django.shortcuts import render
 
-        # Create your views here
-        def show_main(request):
-            context = {
-                'name': 'Sepeda',
-                'price' : '2000000',
-                'quantity' : '10',
-                'description': 'sepeda roda dua, cocok untuk pemula'
-            }
+    # Create your views here
+    def show_main(request):
+        context = {
+            'name': 'Sepeda',
+            'price' : '2000000',
+            'quantity' : '10',
+            'description': 'sepeda roda dua, cocok untuk pemula'
+        }
 
-            return render(request, "main.html", context)
+        return render(request, "main.html", context)
+```
 
 - Isi file main.html dengan kode berikut
-        <h1>Click and Cart</h1>
-        <h3>oleh Muhammad Faizi Ismady Supardjo, kelas PBP C, NPM 2306244955</h3>
+```bash
+    <h1>Click and Cart</h1>
+    <h3>oleh Muhammad Faizi Ismady Supardjo, kelas PBP C, NPM 2306244955</h3>
 
-        <h5>Name: </h5>
-        <p>{{ name }}<p>
-        <h5>Price: </h5>
-        <p>{{ price }}<p>
-        <h5>Quantity: </h5>
-        <p>{{ quantity }}<p>
-        <h5>Description: </h5>
-        <p>{{ description }}<p>
+    <h5>Name: </h5>
+    <p>{{ name }}<p>
+    <h5>Price: </h5>
+    <p>{{ price }}<p>
+    <h5>Quantity: </h5>
+    <p>{{ quantity }}<p>
+    <h5>Description: </h5>
+    <p>{{ description }}<p>
+```
 
 1.7. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py. (checklist 6) <br>
 - Isi file urls.py pada direktori main dengan kode berikut agar dapat menghubungkan views.py di dalam direktori main dengan urls.py
-        from django.urls import path
-        from main.views import show_main
+```bash
+    from django.urls import path
+    from main.views import show_main
 
-        app_name = 'main'
+    app_name = 'main'
 
-        urlpatterns = [
-            path('', show_main, name='show_main'),
-        ]
+    urlpatterns = [
+        path('', show_main, name='show_main'),
+    ]
+```
 
 1.8. Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet. <br>
 - Buka laman PWS, jika belum memiliki akun register jika sudah login
@@ -111,7 +125,9 @@ Note: atribut quantity opsional
 - Akan muncul string credentials yang perlu kita simpan sendiri karena tidak dapat dilihat lagi.
 
 - Pada settings.py di proyek Django, tambahkan URL deployment PWS pada ALLOWED_HOSTS. Isi ALLOWED_HOSTS menjadi
-        ALLOWED_HOSTS = ["localhost", "127.0.0.1", "muhammad-faizi-clickandcart.pbp.cs.ui.ac.id"]
+```bash
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "muhammad-faizi-clickandcart.pbp.cs.ui.ac.id"]
+```
 
 - Buat repositori github bernama click-and-cart. Lalu add commit dan push perubahan kedalam repositori tersebut. Jalankan perintah project command yang terlihat di website PWS. Terakhir lakukan command berikut "git push pws main" yang berfungsi push dari github ke pws. Jika PWS tidak error, seharusnya projek sudah berhasil di launch.
 
@@ -162,18 +178,18 @@ Pada Django, apabila klien/user mengirim HTTP request melalui web platform, requ
 <br>Alasan model pada Django disebut ORM (Object-Relational Mapping) adalah karena Django memungkinkan developer untuk berhubungan dengan data base pada kode python. Django berfungsi sebagai penghubung antara objek-objek dalam kode dan data dalam data base. Dengan ORM kita dapat membuat data base menggunakan Python (dictionary dalam kasus proyek ini) dan otomatis menghasilkan pernyataan SQL untuk dapat berhubungan dengan data base model.
 
 # Tugas 3
-**1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?**
-Data delivery adalah proses terjadinya proses pengiriman atau distribusi data dari suatu sistem, server, atau aplikasi ke sistem lain (antarsistem) atau ke pengguna. Data delivery mencakup transfer data antar server, komunikasi antar aplikasi, sinkronisasi informasi, serta pengiriman data real-time ke perangkat atau sistem yang memerlukan akses informasi secara tepat waktu. Tentu kita memerlukan data delivery dalam pengimplementasian sebuah platform karena data delivery memastikan platform dapat beroperasi dengan efisien dan responsif.
+**1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?**<br>
+Data delivery adalah proses terjadinya proses pengiriman atau distribusi data dari suatu sistem, server, atau aplikasi ke sistem lain (antarsistem) atau ke pengguna. Data delivery mencakup transfer data antar server, komunikasi antar aplikasi, sinkronisasi informasi, serta pengiriman data real-time ke perangkat atau sistem yang memerlukan akses informasi secara tepat waktu. Tentu kita memerlukan data delivery dalam pengimplementasian sebuah platform karena data delivery memastikan platform dapat beroperasi dengan efisien dan responsif. Contohnya ada user yang mengirim data melalui form, tentu server harus dengan cepat memberi umpan balik ke pengguna apakah data tersebut berhasil masuk.
 
-**2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?**
-Menurut saya, JSON (JavaScript Object Notation) lebih baik dibanding XML (eXtensible Markup Language). Beberapa alasan JSON lebih populer dibanding XML diantaranya:
-    - Lebih sederhana: JSON memiliki sintaks yang dapat dibilang cukup sederhana dibanding XML yang memerlukan tag pembuka dan penutup.
+**2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?**<br>
+Menurut saya, JSON (JavaScript Object Notation) lebih baik dibanding XML (eXtensible Markup Language). Beberapa alasan JSON lebih populer dibanding XML:
+    - Lebih sederhana: JSON memiliki sintaks yang dapat dibilang cukup sederhana (mirip dictionary pada Python) dibanding XML yang memerlukan tag pembuka dan penutup.
 
     - Struktur data: JSON memiliki struktur data yang fleksibel dan ukuran data yang lebih kecil dikarenakan format yang ringkas.
 
     - Terintegrasi: Penggunaan JSON sangat umum dalam pemrograman web.
 
-**3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?**
+**3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?**<br>
 Fungsi method is_valid() pada form Django adalah untuk memeriksa apakah data yang dimasukkan oleh pengguna valid atau tidak berdasarkan aturan validasi yang telah ditentukan di form. Metode ini mengecek apakah semua field yang diperlukan diisi, apakah format data sesuai (field, parameter, dll), dan apakah ada kesalahan dalam input.
 
 Setelah memanggil is_valid(), Django akan:
@@ -190,14 +206,16 @@ Alasan method is_valid() dibutuhkan:
 
     - Pengalaman Pengguna: is_valid() membantu mengidentifikasi kesalahan input pengguna, memberikan umpan balik yang bermanfaat, dan memastikan data yang dikirim benar sebelum diproses lebih lanjut.
 
-Dengan kata lain, is_valid() memastikan hanya data yang benar dan sesuai yang masuk ke dalam sistem.
+Kesimpulannya, is_valid() memastikan hanya data yang benar dan sesuai yang masuk ke dalam sistem.
 
-**4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?**
+referensi: https://www.javatpoint.com/django-form-validation
+
+**4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?** <br>
 csrf_token (Cross Site Request Forgery Token) dibutuhkan saat membuat form di Django untuk melindungi aplikasi dari Cross Site Request Forgery. Cross Site Request Forgery adalah bentuk penyerangan dimana penyerang mencoba memaksa pengguna untuk menjalankan aksi tidak sah tanpa sepengetahuan mereka, contohnya transaksi.
 
 Apabila tidak menambahkan csrf_token pada form Django maka aplikasi menjadi rentan terhadap serangan csrf. Hal ini dimanfaatkan penyerang yang dapat dengan mudah memodifikasi situs sehingga pengguna tanpa sadar membuka situs tersebut. Adanya csrf_token pada form memastikan ada token unik pada setiap form  yang dikirim ke server. Jika csrf_token tidak ada, aplikasi tidak bisa menentukan mana form yang sah atau tidak.
 
-**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**<br>
 5.1 Membuat direktori baru templates pada root folder dan isi dengan file base.html. File base.html berisi:
 ```bash
 {% load static %}
