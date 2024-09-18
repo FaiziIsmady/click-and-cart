@@ -15,7 +15,7 @@
 **Tautan menuju PWS yang sudah di deploy :** "http://muhammad-faizi-clickandcart.pbp.cs.ui.ac.id"
 
 # Tugas 2
-[Contents](#contents)<br>
+- [Contents](#contents)<br>
 **1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
 
 1.1. Membuat direktori dan mengaktifkan virtual environment<br>
@@ -186,6 +186,7 @@ Pada Django, apabila klien/user mengirim HTTP request melalui web platform, requ
 # Tugas 3
 - [Contents](#contents)<br>
 - [Screenshot Postman](#screenshot-postman)<br>
+
 **1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?**<br>
 Data delivery adalah proses terjadinya proses pengiriman atau distribusi data dari suatu sistem, server, atau aplikasi ke sistem lain (antarsistem) atau ke pengguna. Data delivery mencakup transfer data antar server, komunikasi antar aplikasi, sinkronisasi informasi, serta pengiriman data real-time ke perangkat atau sistem yang memerlukan akses informasi secara tepat waktu. Tentu kita memerlukan data delivery dalam pengimplementasian sebuah platform karena data delivery memastikan platform dapat beroperasi dengan efisien dan responsif. Contohnya ada user yang mengirim data melalui form, tentu server harus dengan cepat memberi umpan balik ke pengguna apakah data tersebut berhasil masuk.
 
