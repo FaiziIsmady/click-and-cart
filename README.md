@@ -227,7 +227,7 @@ csrf_token (Cross Site Request Forgery Token) dibutuhkan saat membuat form di Dj
 Apabila tidak menambahkan csrf_token pada form Django maka aplikasi menjadi rentan terhadap serangan csrf. Hal ini dimanfaatkan penyerang yang dapat dengan mudah memodifikasi situs sehingga pengguna tanpa sadar membuka situs tersebut. Adanya csrf_token pada form memastikan ada token unik pada setiap form  yang dikirim ke server. Jika csrf_token tidak ada, aplikasi tidak bisa menentukan mana form yang sah atau tidak.
 
 **5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**<br>
-5.1 Membuat direktori baru `templates` pada root folder dan isi dengan file `base.html`. File `base.html` berisi:
+5.1. Membuat direktori baru `templates` pada root folder dan isi dengan file `base.html`. File `base.html` berisi:
 ```bash
 {% load static %}
 <!DOCTYPE html>
@@ -243,17 +243,17 @@ Apabila tidak menambahkan csrf_token pada form Django maka aplikasi menjadi rent
   </body>
 </html>
 ```
-5.2 Menambahkan line berikut pada `settings.py`
+5.2. Menambahkan line berikut pada `settings.py`
 ```bash
 'DIRS': [BASE_DIR / 'templates'],
 ```
 
-5.3 Mengubah `main.html` yang ada pada main/templates/ untuk mengextend `base.html`. Dilakukan dengan menambah line berikut dipaling atas.
+5.3. Mengubah `main.html` yang ada pada main/templates/ untuk mengextend `base.html`. Dilakukan dengan menambah line berikut dipaling atas.
 ```bash
 {% extends 'base.html' %}
 ```
 
-5.4.1 Memodifikasi `models.py` untuk menjaga keamanan website dengan menambahkan atribut id.
+5.4. Memodifikasi `models.py` untuk menjaga keamanan website dengan menambahkan atribut id.
 ```bash
 import uuid
 from django.db import models
@@ -266,9 +266,9 @@ class Product(models.Model):
     quantity = models.IntegerField()
 ```
 
-5.4.2 Lakukan migrasi model
+5.4.1 Lakukan migrasi model
 
-5.5 Membuat form input data (checklist 1) dengan membuat file `forms.py` pada direktori main. Isi file sebagai berikut:
+5.5. Membuat form input data (checklist 1) dengan membuat file `forms.py` pada direktori main. Isi file sebagai berikut:
 ```bash
 from django.forms import ModelForm
 from main.models import Product
@@ -279,7 +279,7 @@ class ProductEntryForm(ModelForm):
         fields = ["name", "price", "quantity", "description"]
 ```
 
-5.6.1 Memodifikasi `views.py` dengan membuat method agar dapat menambah produk dari form yang disubmit dan memodifikasi show_main agar menerima parameter input dari form. Isi file sebagai berikut:
+5.6. Memodifikasi `views.py` dengan membuat method agar dapat menambah produk dari form yang disubmit dan memodifikasi show_main agar menerima parameter input dari form. Isi file sebagai berikut:
 ```bash
 from django.shortcuts import render, redirect  
 from main.forms import ProductEntryForm
@@ -311,7 +311,7 @@ def create_product_entry(request):
     return render(request, "create_product_entry.html", context)
 ```
 
-5.6.2 Buka file `urls.py`, import method yang sudah dibuat, dan tambahkan path URL dengan menambahkan line berikut:
+5.6.1. Buka file `urls.py`, import method yang sudah dibuat, dan tambahkan path URL dengan menambahkan line berikut:
 ```bash
 from main.views import show_main, create_product_entry
 
@@ -321,7 +321,7 @@ urlpatterns = [
 ]
 ```
 
-5.7 Pada direktori main/templates/ buat file baru bernama `create_product_entry.html` dan isi sebagai berikut:
+5.7. Pada direktori main/templates/ buat file baru bernama `create_product_entry.html` dan isi sebagai berikut:
 ```bash
 {% extends 'base.html' %} 
 {% block content %}
@@ -342,7 +342,7 @@ urlpatterns = [
 {% endblock %}
 ```
 
-5.8 Modifikasi `main.html` pada main/templates/ agar dapat melihatkan data produk. Isi file sebagai berikut:
+5.8. Modifikasi `main.html` pada main/templates/ agar dapat melihatkan data produk. Isi file sebagai berikut:
 ```bash
 {% extends 'base.html' %}
 {% block content %}
@@ -388,7 +388,7 @@ urlpatterns = [
 {% endblock content %}
 ```
 
-5.8.1 Memodifikasi `views.py` agar dapat return data dalam bentuk XML dan JSON secara keseluruhan serta return data XML dan JSON sesuai id. Isi file dimodifikasi sebagai berikut:
+5.8.1. Memodifikasi `views.py` agar dapat return data dalam bentuk XML dan JSON secara keseluruhan serta return data XML dan JSON sesuai id. Isi file dimodifikasi sebagai berikut:
 ```bash
 from django.http import HttpResponse
 from django.core import serializers
@@ -438,7 +438,7 @@ def show_json_by_id(request, id):
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 ```
 
-5.8.2 Memodifikasi `urls.py` untuk mengimport method yang sudah dibuat dan menambahkan url patterns yang sesuai. Isi file sebagai berikut:
+5.8.2. Memodifikasi `urls.py` untuk mengimport method yang sudah dibuat dan menambahkan url patterns yang sesuai. Isi file sebagai berikut:
 ```bash
 from django.urls import path
 from main.views import show_main, create_product_entry, show_xml, show_json, show_xml_by_id, show_json_by_id
@@ -457,6 +457,7 @@ urlpatterns = [
 
 ## Screenshot Postman
 - [Contents](#contents)<br>
+
 **JSON**
 ![Screenshot 2024-09-17 175417](https://github.com/user-attachments/assets/8d10be97-e4d3-43cd-adbd-d60d6e652395)
 
