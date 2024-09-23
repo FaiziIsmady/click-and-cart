@@ -736,7 +736,7 @@ urlpatterns = [
 ```
 
 5.4 Restriksi akses<br>
-Buka `views.py`, tambahkan import login required
+5.4.1 Buka `views.py`, tambahkan import login required
 ```bash
 from django.contrib.auth.decorators import login_required
 ```
@@ -747,4 +747,101 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login')
 def show_main(request):
 ...
+```
+
+5.5 Menggunakan data dari cookies
+5.5.1  Buka `views.py`, tambahkan import berikut di paling atas
+```bash
+import datetime
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+```
+
+- Ubah fungsi login user untuk dapat melihat kapan pengguna terakhir login. Kodenya sebagai berikut (ganti pada if block)
+```bash
+...
+if form.is_valid():
+    user = form.get_user()
+    login(request, user)
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    response.set_cookie('last_login', str(datetime.datetime.now()))
+    return response
+...
+```
+
+- Pada fungsi show_main, tambahkan kode `'last_login': request.COOKIES['last_login']` ke dalam variabel `context`
+
+- Modif fungsi `logout_user`. Menjadi sebagai berikut:
+```bash
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
+```
+
+- Tambahkan tombol logout pada `main.html` sebagai berikut
+```bash
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+```
+
+5.6 Menghubungkan entri produk dengan user
+- Import  model user pada `models.py`. Tambahkan variabel user pada model `productentry`. Kode sebagai berikut
+```bash
+import uuid
+from django.db import models
+from django.contrib.auth.models import User
+
+class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255)
+    price = models.IntegerField()
+    description = models.TextField()
+    quantity = models.IntegerField()
+```
+
+- Buka `views.py`, ubah kode pada fungsi `create_product_entry`. Kode sebagai berikut:
+```bash
+def create_product_entry(request):
+    form = ProductEntryForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        product_entry = form.save(commit=False)
+        product_entry.user = request.user
+        product_entry.save()
+        return redirect('main:show_main')
+
+    context = {'form': form}
+    return render(request, "create_product_entry.html", context)
+```
+
+- Ubah value product entries pada `show_main()` sebagai berikut:
+```bash
+def show_main(request):
+    product_entries = Product.objects.filter(user=request.user)
+
+    context = {
+        'name': request.user.username,
+        'price' : '2000000',
+        'quantity' : '10',
+        'description': 'sepeda roda dua, cocok untuk pemula',
+        'product_entries' : product_entries,
+        'last_login': request.COOKIES['last_login'],
+    }
+
+    return render(request, "main.html", context)
+```
+
+- Lakukan migration dengan perintah `python manage.py makemigrations`
+
+5.7 Mempersiapkan aplikasi web untuk environtment production.
+- Tambahkan import baru pada `setttings.py` dan ganti variabel `DEBUG` menjadi seperti.
+```bash
+import os
+
+PRODUCTION = os.getenv("PRODUCTION", False)
+DEBUG = not PRODUCTION
 ```
