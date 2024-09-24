@@ -563,7 +563,7 @@ Tidak, tidak semua cookies aman. Dibalik kegunaannya, cookies membawa berbagai t
 - Cross-Site Request Forgery (CSRF): Serangan CSRF dapat mengeksploitasi cookie session untuk melakukan tindakan yang tidak diinginkan atas nama pengguna.
 
 **5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**<br>
-5.1 Membuat Fungsi dan Form Registrasi
+5.1 Membuat Fungsi dan Form Registrasi (Checklist 1)
 - Aktifkan virtual environment
 
 5.1.2 Buka `views.py` yang ada pada direktori `main`. Tambahkan import berikut di paling atas.
@@ -633,7 +633,7 @@ from main.views import register
  ]
 ```
 
-5.2 Membuat Fungsi Login<br>
+5.2 Membuat Fungsi Login<br> (Checklist 1)
 5.2.1 Buka `views.py` yang ada pada direktori `main`. Tambahkan import berikut di paling atas.
 ```bash
 from django.contrib.auth.forms import UserCreationForm AuthenticationForm
@@ -704,7 +704,7 @@ urlpatterns = [
 ]
 ```
 
-5.3 Membuat fungsi logout<br>
+5.3 Membuat fungsi logout<br> (Checklist 1)
 5.3.1 Buka `views.py` yang ada pada direktori `main`. Tambahkan import berikut di paling atas.
 ```bash
 from django.contrib.auth import logout
@@ -749,7 +749,7 @@ def show_main(request):
 ...
 ```
 
-5.5 Menggunakan data dari cookies<br>
+5.5 Menggunakan data dari cookies<br> (Checklist 4)
 5.5.1  Buka `views.py`, tambahkan import berikut di paling atas
 ```bash
 import datetime
@@ -787,7 +787,7 @@ def logout_user(request):
 </a>
 ```
 
-5.6 Menghubungkan entri produk dengan user
+5.6 Menghubungkan entri produk dengan user (Checklist 3)
 - Import  model user pada `models.py`. Tambahkan variabel user pada model `productentry`. Kode sebagai berikut
 ```bash
 import uuid
@@ -845,3 +845,9 @@ import os
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 ```
+
+5.8 Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal. (Checklist 2)
+**Username: kingsapi**
+![alt text](image.png)
+**username:sapihitam**
+![alt text](image-1.png)
