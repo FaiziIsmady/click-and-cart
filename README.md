@@ -473,6 +473,7 @@ urlpatterns = [
 
 # Tugas 4
 - [Contents](#contents)<br>
+- [Foto akun pengguna](#foto-akun-pengguna)
 
 **1. Apa perbedaan antara HttpResponseRedirect() dan redirect()**<br>
 i. `HttpResponseRedirect()`
@@ -846,8 +847,12 @@ PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 ```
 
-5.8 Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal. (Checklist 2)
-**Username: kingsapi**
+5.8 Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal. (Checklist 2)<br>
+
+## Foto akun pengguna
+- [Tugas 4](#tugas-4)
+
+**username: kingsapi**
 ![alt text](image.png)
 **username:sapihitam**
 ![alt text](image-1.png)
