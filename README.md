@@ -499,7 +499,7 @@ def my_view(request):
 - Parameter: String URL, Nama view dari `urls.py`, dll.
 - Keuntungan: Lebih fleksibel
 
-**2. Jelaskan cara kerja penghubungan model MoodEntry dengan User!**
+**2. Jelaskan cara kerja penghubungan model MoodEntry dengan User!**<br>
 Untuk menghubungkan model `MoodEntry` dengan model User dalam Django, Anda dapat menggunakan field `ForeignKey` pada model `MoodEntry` yang mengacu pada model User
 
 - Contoh implementasi
@@ -633,7 +633,7 @@ from main.views import register
  ]
 ```
 
-5.2 Membuat Fungsi Login
+5.2 Membuat Fungsi Login<br>
 5.2.1 Buka `views.py` yang ada pada direktori `main`. Tambahkan import berikut di paling atas.
 ```bash
 from django.contrib.auth.forms import UserCreationForm AuthenticationForm
@@ -693,7 +693,7 @@ def login_user(request):
 {% endblock content %}
 ```
 
-- Buka file `urls.py`, impor fungsi yang sudah dibuat dan masukkan pathnya.
+- Buka file `urls.py`, import fungsi yang sudah dibuat dan masukkan pathnya.
 
 ```bash
 from main.views import login_user
@@ -704,7 +704,7 @@ urlpatterns = [
 ]
 ```
 
-5.3 Membuat fungsi logout
+5.3 Membuat fungsi logout<br>
 5.3.1 Buka `views.py` yang ada pada direktori `main`. Tambahkan import berikut di paling atas.
 ```bash
 from django.contrib.auth import logout
@@ -749,7 +749,7 @@ def show_main(request):
 ...
 ```
 
-5.5 Menggunakan data dari cookies
+5.5 Menggunakan data dari cookies<br>
 5.5.1  Buka `views.py`, tambahkan import berikut di paling atas
 ```bash
 import datetime
