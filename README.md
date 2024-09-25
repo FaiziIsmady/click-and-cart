@@ -750,7 +750,7 @@ def show_main(request):
 ...
 ```
 
-5.5 Menggunakan data dari cookies<br> (Checklist 4)
+5.5 Menggunakan data dari cookies (Checklist 4) <br>
 5.5.1  Buka `views.py`, tambahkan import berikut di paling atas
 ```bash
 import datetime
