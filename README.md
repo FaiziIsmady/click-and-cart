@@ -6,6 +6,7 @@
 - [Tugas 2](#tugas-2)<br>
 - [Tugas 3](#tugas-3)<br>
 - [Tugas 4](#tugas-4)<br>
+- [Tugas 5](#tugas-5)
 
 ## Data Diri
 **Nama : Muhammad Faizi Ismady Supardjo**<br>
@@ -856,3 +857,90 @@ DEBUG = not PRODUCTION
 ![alt text](image.png)
 **username:sapihitam**
 ![alt text](image-1.png)
+
+# Tugas 5
+
+- [Contents](#contents)<br>
+
+**1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!**
+
+Urutan prioritas pengambilan CSS selector yakni:<br>
+1.1 `!important` (Important Rule), Deklarasi yang menggunakan `!important` akan selalu memiliki prioritas tertinggi mengesampingkan yang lainnya. Contoh penggunaan:
+```bash
+p {
+  color: red !important;
+}
+``` 
+1.2 Inline Styles, penulisan menggunakan inline styles akan selalu memiliki prioritas tertinggi. Contoh penggunaan:
+```bash
+<p style="color: blue;">This text is blue</p>
+``` 
+
+1.3 ID Selector, `#id` memiliki prioritas lebih tinggi dibandingkan elemen atau class.
+
+1.4 Class Selector, `.class`, attribute selector `[type="text"]` memiliki prioritas menengah (lebih tinggi daripada tag).
+
+1.5 Tag Selector, memiliki prioritas terendah.
+
+**2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!** <br>
+Alasan responsive design menjadi konsep penting dalam pengembangan web adalah, karena membantu memastikan bahwa tampilan dan fungsionalitas website atau aplikasi web beradaptasi dengan berbagai ukuran layar dan perangkat yang digunakan oleh pengguna, seperti smartphone, tablet, dan desktop. Hal tersebut menghasilkan:<br> 
+- Pengalaman pengguna yang lebih baik 
+- Penggunaan yang efisien di berbagai perangkat
+- Integrasi sistem yang lebih baik
+
+Contoh:<br>
+Aplikasi yang sudah menerapkan:<br>
+- Amazon
+- X/Twitter
+- Instagram
+
+Aplikasi yang belum menerapkan:<br>
+- SiakNG
+
+**3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!** <br>
+3.1 Margin, adalah border (ruang luar batas) elemen yang berfungsi membuat jarak antara elemen satu dan elemen lainnya.<br>
+Contoh penggunaan:
+```bash
+.element {
+  margin: 20px; /* Semua sisi diberi margin 20px */
+}
+```
+
+3.2 Border, adalah garis yang mengelilingi elemen. Berada di antara margin dan padding.Kita bisa mengatur ketebalannya, warnanya, dan jenis garisnya.<br>
+Contoh penggunaan:
+```bash
+.element {
+  border: 2px solid black; /* Border hitam, solid, dengan ketebalan 2px */
+}
+```
+
+3.3 Padding, adalah border (ruang dalam batas) elemen yang berfungsi memisahkan konten elemen dari batasnya.  Padding menambah ruang antara konten (misalnya teks) dengan bagian dalam dari border.<br>
+Contoh penggunaan:
+```bash
+.element {
+  padding: 10px; /* Semua sisi diberi padding 10px */
+}
+```
+
+**4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!**
+Secara garis besar, flex box dan grid layout adalah dua teknik layout yang sangat populer dalam CSS untuk mengatur tata letak elemen-elemen di halaman web secara fleksibel dan responsi. <br>
+
+4.1 Flex box<br>
+4.1.1 Konsep: <br>
+Flexbox adalah model layout satu dimensi yang digunakan untuk mengatur elemen di sepanjang sumbu utama (horizontal atau vertikal). Dengan Flexbox, kita bisa dengan mudah menyusun ruang antar elemen dalam suatu kontainer.
+
+4.1.2 Kegunaan:<br>
+- Mengatur tata letak elemen secara horizontal atau vertikal dalam satu dimensi.
+- Mengatur elemen agar responsif dan mudah diposisikan tanpa memikirkan ukuran pasti.
+- Mengatur tata letak elemen yang memiliki lebar atau tinggi dinamis.
+
+4.2 Grid Layout<br>
+4.2.1 Konsep:<br>
+CSS Grid Layout adalah model layout dua dimensi yang dapat mengatur elemen berdasarkan baris dan kolom. Grid Layout memberikan kontrol lebih rinci dibandingkan Flexbox karena kita dapat mengatur elemen secara horizontal dan vertikal (dua dimensi) dalam grid.
+
+4.2.2 Kegunaan<br>
+- Mengatur elemen dalam bentuk baris dan kolom.
+- Sangat berguna untuk layout yang lebih kompleks dan presisi, seperti layout halaman web dengan beberapa kolom dan baris.
+- Membuat tata letak responsif yang lebih terstruktur.
+
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!**
