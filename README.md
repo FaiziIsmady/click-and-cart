@@ -458,7 +458,7 @@ urlpatterns = [
 ```
 
 ## Screenshot Postman
-- [Contents](#contents)<br>
+- [Tugas 3](#tugas-3)<br>
 
 **JSON**
 ![Screenshot 2024-09-17 175417](https://github.com/user-attachments/assets/8d10be97-e4d3-43cd-adbd-d60d6e652395)
@@ -861,6 +861,7 @@ DEBUG = not PRODUCTION
 # Tugas 5
 
 - [Contents](#contents)<br>
+- [Foto Navbar](#foto-navbar)
 
 **1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!**
 
@@ -984,4 +985,423 @@ urlpatterns = [
     ...
 ]
 ```
+
+5.2 Kustomisasi desain pada template HTML yang telah dibuat pada tugas-tugas sebelumnya<br>
+- Menambahkan kode pada file `base.html` agar bisa dihubungkan dengan tailwind. Isi file sebagai berikut
+```bash
+<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block meta %} {% endblock meta %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
+```
+
+- Membuat folder `static` yang didalamnya berisi `css` dan `image`. Buat file `global.css` didalamnya sebagai berikut
+```bash
+.form-style form input, form textarea, form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #bcbcbc;
+    border-radius: 0.375rem;
+}
+.form-style form input:focus, form textarea:focus, form select:focus {
+    outline: none;
+    border-color: #674ea7;
+    box-shadow: 0 0 0 3px #674ea7;
+}
+@keyframes shine {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+.animate-shine {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3));
+    background-size: 200% 100%;
+    animation: shine 3s infinite;
+}
+```
+
+5.2.1 Kustomisasi halaman login, register, dan tambah product semenarik mungkin.
+- Ubah file `login.html` sebagai berikut
+```bash
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 relative">
+  <!-- Text Above the Form -->
+  <div class="absolute top-24 text-center">
+    <p class="text-4xl font-bold text-gray-300">
+      Click and Cart by Faizi Ismady
+    </p>
+  </div>
+
+  <!-- Login Form -->
+  <div class="max-w-md w-full space-y-8 bg-gray-800 p-6 rounded-lg shadow-lg mt-12">
+    <div>
+      <h2 class="text-center text-3xl font-extrabold text-gray-100 mb-4">
+        Welcome Back!
+      </h2>
+      <p class="text-center text-gray-400 mb-6">
+        Please login to your account
+      </p>
+    </div>
+    <form method="POST" action="">
+      {% csrf_token %}
+      <input type="hidden" name="remember" value="true">
+      <div class="rounded-md shadow-sm space-y-4">
+        <div>
+          <label for="username" class="block text-gray-400">Username</label>
+          <input id="username" name="username" type="text" required 
+                 class="appearance-none block w-full px-3 py-2 border border-gray-600 
+                        placeholder-gray-500 text-gray-300 bg-gray-700 rounded-md 
+                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                 placeholder="Enter your username">
+        </div>
+        <div>
+          <label for="password" class="block text-gray-400">Password</label>
+          <input id="password" name="password" type="password" required 
+                 class="appearance-none block w-full px-3 py-2 border border-gray-600 
+                        placeholder-gray-500 text-gray-300 bg-gray-700 rounded-md 
+                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                 placeholder="Enter your password">
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <button type="submit" 
+                class="group w-full py-2 px-4 border border-transparent text-sm font-medium 
+                       rounded-md text-white bg-indigo-600 hover:bg-indigo-500 
+                       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 
+                       transition-transform transform hover:scale-105 duration-300">
+          Sign in
+        </button>
+      </div>
+    </form>
+
+    {% if messages %}
+    <div class="mt-4">
+      {% for message in messages %}
+      {% if message.tags == "success" %}
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% elif message.tags == "error" %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% else %}
+            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-100">
+        Don't have an account yet?
+        <a href="{% url 'main:register' %}" class="font-medium text-indigo-400 hover:text-indigo-300 transition">
+          Register Now
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+```
+
+- Ubah file `register.html` sebagai berikut
+```bash
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Register</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 form-style bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-100">
+        Create your account
+      </h2>
+    </div>
+    <form class="mt-8 space-y-6" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="remember" value="true">
+      <div class="rounded-md shadow-sm -space-y-px">
+        {% for field in form %}
+          <div class="{% if not forloop.first %}mt-4{% endif %}">
+            <label for="{{ field.id_for_label }}" class="mb-2 font-semibold text-gray-100">
+              {{ field.label }}
+            </label>
+            <div class="relative">
+              {{ field }}
+              <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                {% if field.errors %}
+                  <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                  </svg>
+                {% endif %}
+              </div>
+            </div>
+            {% if field.errors %}
+              {% for error in field.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div>
+        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Register
+        </button>
+      </div>
+    </form>
+
+    {% if messages %}
+    <div class="mt-4">
+      {% for message in messages %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">{{ message }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-100">
+        Already have an account?
+        <a href="{% url 'main:login' %}" class="font-medium text-indigo-400 hover:text-indigo-300">
+          Login here
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+```
+
+- Ubah file `create_product_entry.html` sebagai berikut
+```bash
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+<title>Create Product</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="flex flex-col min-h-screen bg-gray-900">
+  <div class="container mx-auto px-4 py-8 mt-16 max-w-xl">
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-100">Create Product Entry</h1>
+  
+    <div class="bg-gray-800 shadow-md rounded-lg p-6 form-style">
+      <form method="POST" class="space-y-6">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="flex flex-col">
+            <label for="{{ field.id_for_label }}" class="mb-2 font-semibold text-gray-100">
+              {{ field.label }}
+            </label>
+            <div class="w-full">
+              {{ field }}
+            </div>
+            {% if field.help_text %}
+              <p class="mt-1 text-sm text-gray-400">{{ field.help_text }}</p>
+            {% endif %}
+            {% for error in field.errors %}
+              <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endfor %}
+        <div class="flex justify-center mt-6">
+          <button type="submit" class="bg-gray-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-600 transition duration-300 ease-in-out w-full">
+            Create Product Entry
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+```
+
+5.2.2 Kustomisasi halaman daftar product menjadi lebih menarik dan responsive. Jikabelum ada product, halaman daftar product akan menampilkan gambar dan pesan.Jika sudah ada, halaman daftar product akan menampilkan detail product menggunakan card. Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut!
+
+- Buat file `card_product.html` dengan isi sebagai berikut
+```bash
+<div class="relative break-inside-avoid">
+  <div class="absolute top-2 z-10 left-1/2 -translate-x-1/2 flex items-center -space-x-2">
+    <div class="w-[3rem] h-8 bg-gray-700 rounded-md opacity-80 -rotate-90"></div>
+    <div class="w-[3rem] h-8 bg-gray-700 rounded-md opacity-80 -rotate-90"></div>
+  </div>
+  <div class="relative top-5 bg-gray-800 shadow-md rounded-lg mb-6 break-inside-avoid flex flex-col border-2 border-gray-700 transform rotate-1 hover:rotate-0 transition-transform duration-300">
+    <div class="bg-gray-700 text-white p-4 rounded-t-lg border-b-2 border-gray-600">
+      <h3 class="font-bold text-xl mb-2">{{ product_entry.name }}</h3>
+    </div>
+    <div class="p-4">
+      <p class="font-semibold text-white mb-2">Product Description</p> 
+      <p class="text-gray-300 mb-2">
+        <span class="bg-[linear-gradient(to_bottom,transparent_0%,transparent_calc(100%_-_1px),#CDC1FF_calc(100%_-_1px))] bg-[length:100%_1.5rem] pb-1">{{ product_entry.description }}</span>
+      </p>
+      <div class="mt-4">
+        <p class="text-gray-300 font-semibold mb-2">Stock Quantity</p>
+        <div class="relative pt-1">
+          <div class="flex mb-2 items-center justify-between">
+            <div>
+              <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-400 bg-gray-600">
+                {% if product_entry.quantity > 100 %}100+{% else %}{{ product_entry.quantity }}{% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute top-0 -right-4 flex space-x-1">
+    <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-yellow-500 hover:bg-yellow-600 text-white rounded-full p-2 transition duration-300 shadow-md">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+      </svg>
+    </a>
+    <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-2 transition duration-300 shadow-md">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+      </svg>
+    </a>
+  </div>
+</div>
+```
+- Ubah file `main.html` sebagai berikut
+```bash
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Click and Cart</title>
+{% endblock meta %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="overflow-x-hidden px-4 md:px-8 pb-8 pt-24 min-h-screen bg-gray-900 flex flex-col">
+  <div class="p-2 mb-6 relative">
+    <div class="relative grid grid-cols-1 z-30 md:grid-cols-3 gap-8">
+      {% include "card_info.html" with title='User Name' value=name show_member_since=True %}
+      {% include "card_info.html" with title='Entered Products' value=total_products show_member_since=False %}
+    </div>
+  </div>
+  <div class="px-3 mb-4">
+    <div class="flex rounded-md items-center bg-gray-700 py-2 px-4 w-fit">
+      <h1 class="text-gray-100 text-center">Last Login: {{last_login}}</h1>
+    </div>
+  </div>
+  <!--
+  <div class="flex justify-end mb-6">
+    <a href="{% url 'main:create_product_entry' %}" class="bg-gray-700 hover:bg-gray-600 text-gray-100 font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+      Add New Product Entry
+    </a>
+  </div>
+  -->
+    
+  {% if not product_entries %}
+  <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+    <img src="{% static 'image/images.png' %}" alt="Sad face" class="w-32 h-32 mb-4"/>
+    <p class="text-center text-gray-400 mt-4">Belum ada data product pada Click and Cart.</p>
+  </div>
+  {% else %}
+  <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-full">
+    {% for product_entry in product_entries %}
+      {% include 'card_product.html' with product_entry=product_entry %}
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}
+```
+
+5.3 Buatlah navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
+- Buat file `navbar.html` pada direktori `templates` isi sebagai berikut
+```bash
+<nav class="bg-gray-800 shadow-lg fixed top-0 left-0 z-40 w-screen">
+  <div class="max-w-full px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <h1 class="text-2xl font-bold text-left text-gray-400">Click and Cart by Faizi Ismady</h1>
+      </div>
+      <div class="hidden md:flex items-center">
+        {% if user.is_authenticated %}
+          <span class="text-gray-300 mr-4">Welcome, {{ user.username }}</span>
+          <a href="{% url 'main:create_product_entry' %}" class="text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300 mr-4">
+            Add New Product
+          </a>
+          <a href="{% url 'main:logout' %}" class="text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+            Logout
+          </a>
+        {% else %}
+          <a href="{% url 'main:login' %}" class="text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mr-2">
+            Login
+          </a>
+          <a href="{% url 'main:register' %}" class="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+            Register
+          </a>
+        {% endif %}
+      </div>
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button">
+          <svg class="w-6 h-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div class="mobile-menu hidden md:hidden px-4 w-full md:max-w-full">
+    <div class="pt-2 pb-3 space-y-1 mx-auto">
+      {% if user.is_authenticated %}
+        <span class="block text-gray-300 px-3 py-2">Welcome, {{ user.username }}</span>
+        <a href="{% url 'main:create_product_entry' %}" class="block text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+          Add New Product
+        </a>
+        <a href="{% url 'main:logout' %}" class="block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+          Logout
+        </a>
+      {% else %}
+        <a href="{% url 'main:login' %}" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2">
+          Login
+        </a>
+        <a href="{% url 'main:register' %}" class="block text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+          Register
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  <script>
+    const btn = document.querySelector("button.mobile-menu-button");
+    const menu = document.querySelector(".mobile-menu");
+
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  </script>
+</nav>
+```
+
+## Foto Navbar
+- [Tugas 5](#tugas-5)
+
+**Kondisi navbar mobile**
+![S__43261979](https://github.com/user-attachments/assets/de6f6807-0c85-4899-961d-3c339a3d647e)
+
+
+**Kondisi navbar desktop**
+![Screenshot 2024-10-02 093123](https://github.com/user-attachments/assets/76da57c0-6eb0-48e7-af1e-e7f166480d42)
 
