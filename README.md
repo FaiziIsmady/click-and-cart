@@ -943,4 +943,45 @@ CSS Grid Layout adalah model layout dua dimensi yang dapat mengatur elemen berda
 - Sangat berguna untuk layout yang lebih kompleks dan presisi, seperti layout halaman web dengan beberapa kolom dan baris.
 - Membuat tata letak responsif yang lebih terstruktur.
 
-**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!**
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!**<br>
+
+5.1 Mengimplementasi fungsi edit dan delete product (Checklist 1)<br>
+5.1.1 Membuat kedua fungsi pada `views.py`
+```bash
+def edit_product(request, id):
+    # Get product entry berdasarkan id
+    product = Product.objects.get(pk = id)
+
+    # Set product entry sebagai instance dari form
+    form = ProductEntryForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    # Get product berdasarkan id
+    product = Product.objects.get(pk = id)
+    # Hapus product
+    product.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
+```
+
+5.1.2 Import dan route kedua fungsi ke `urls.py`
+```bash
+from main.views import edit_product
+from main.views import delete_product
+
+urlpatterns = [
+    ...
+    path('edit-mood/<uuid:id>', edit_product, name='edit_product'),
+    path('delete/<uuid:id>', delete_product, name='delete_product'),
+    ...
+]
+```
+

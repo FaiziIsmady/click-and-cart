@@ -2,5 +2,10 @@
   <div class="p-4 animate-shine">
     <h5 class="text-lg font-semibold text-white">{{ title }}</h5>
     <p class="text-gray-200">{{ value }}</p>
+
+    <!-- Display member since with conditions -->
+    {% if show_member_since %}
+    <p class="text-gray-200">Member Since: {{ user.date_joined|date:"F d, Y" }}</p>
+    {% endif %}
   </div>
 </div>

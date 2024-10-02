@@ -18,6 +18,7 @@ from django.shortcuts import render
 @login_required(login_url='/login')
 def show_main(request):
     product_entries = Product.objects.filter(user=request.user)
+    total_products = Product.objects.filter(user=request.user).count()
 
     context = {
         'name': request.user.username,
@@ -26,6 +27,8 @@ def show_main(request):
         'description': 'sepeda roda dua, cocok untuk pemula',
         'product_entries' : product_entries,
         'last_login': request.COOKIES['last_login'],
+        'total_products': total_products,
+        'date_joined': request.user.date_joined
     }
 
     return render(request, "main.html", context)
