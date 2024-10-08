@@ -24,9 +24,6 @@ def show_main(request):
 
     context = {
         'name': request.user.username,
-        'price' : '2000000',
-        'quantity' : '10',
-        'description': 'sepeda roda dua, cocok untuk pemula',
         'last_login': request.COOKIES['last_login'],
         'total_products': total_products,
         'date_joined': request.user.date_joined

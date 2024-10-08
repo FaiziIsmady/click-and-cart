@@ -19,7 +19,12 @@
       <h1 class="text-gray-100 text-center">Last Login: {{last_login}}</h1>
     </div>
   </div>
-  <div id="product_entry_cards"></div>
+  <!-- Add the product cards here -->
+  <div id="product_entry_cards">
+    {% for product in products %}
+        {% include "card_product.html" with product_entry=product %}
+    {% endfor %}
+  </div>
   <div id="crudModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
     <div id="crudModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out">
       <!-- Modal header -->
@@ -43,15 +48,15 @@
           </div>
           <div class="mb-4">
             <label for="price" class="block text-sm font-medium text-gray-700">Product Price</label>
-            <input type="number" id="price" name="price" min="1" max="999999" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" required>
+            <input type="number" id="price" name="price" min="1" max="99999999" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" required>
           </div>
           <div class="mb-4">
             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
             <textarea id="description" name="description" rows="3" class="mt-1 block w-full h-52 resize-none border border-gray-300 rounded-md p-2 hover:border-indigo-700" placeholder="Describe your product" required></textarea>
           </div>
           <div class="mb-4">
-            <label for="quantity" class="block text-sm font-medium text-gray-700">Product Quantity (1-10)</label>
-            <input type="number" id="quantity" name="quantity" min="0" max="1000" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" required>
+            <label for="quantity" class="block text-sm font-medium text-gray-700">Product Quantity</label>
+            <input type="number" id="quantity" name="quantity" min="0" max="99999999" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" required>
           </div>
         </form>
       </div>
@@ -111,12 +116,12 @@
                                 <div class="flex mb-2 items-center justify-between">
                                     <div>
                                         <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-600 bg-indigo-200">
-                                            ${item.fields.price > 10 ? '10+' : item.fields.price}
+                                            ${item.fields.price > 10000000 ? '10+' : item.fields.price}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-indigo-200">
-                                    <div style="width: ${item.fields.price > 10 ? 100 : item.fields.price * 10}%;" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500"></div>
+                                    <div style="width: ${item.fields.price > 10000000 ? 100 : item.fields.price * 10}%;" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500"></div>
                                 </div>
                             </div>
                         </div>
