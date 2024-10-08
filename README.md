@@ -1468,4 +1468,150 @@ frontend. Backend memastikan data konsisten dan sesuai standar, serta tidak berg
 Validasi kompleks juga lebih efektif dilakukan di backend. Frontend validation tetap penting untuk pengalaman 
 pengguna yang lebih responsif, tapi tidak cukup untuk menjamin keamanan data.
 
-**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!**
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!**<br>
+
+5.1 AJAX `GET`<br>
+5.1.2 Ubahlah kode `cards` data mood agar dapat mendukung AJAX `GET`
+- Tambahkan import dan membuat fungsi `product_entry_by_ajax` pada `views.py`. Sebagai berikut.
+```bash
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+
+@csrf_exempt
+@require_POST
+def add_product_entry_ajax(request):
+    product_name = strip_tags(request.POST.get("name"))
+    description = strip_tags(request.POST.get("description"))
+    price = request.POST.get("price")
+    quantity = request.POST.get("quantity")
+    user = request.user
+
+    new_product = Product(
+        name=product_name, 
+        description=description,
+        price=price,
+        quantity=quantity,
+        user=user
+    )
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)
+```
+
+- Melakukan routing fungsi `product_entry_by_ajax` ke `urls.py`, sebagai berikut
+```bash
+...
+from main.views import add_product_entry_ajax
+
+urlpatterns = [
+    path('create-product-entry-ajax', add_product_entry_ajax, name='add_product_entry_ajax'),
+]
+```
+
+5.1.2 Lakukan pengambilan data mood menggunakan AJAX GET. Pastikan bahwa data yang diambil hanyalah data milik pengguna yang logged-in.
+- Fungsi JavaScript untuk GET Data: Berikut ini adalah fungsi JavaScript yang digunakan untuk mengambil data dari server menggunakan AJAX `GET` dan mengupdate card di halaman utama.
+```bash
+async function getProductEntries() {
+    return fetch("{% url 'main:show_json' %}").then((res) => res.json());
+}
+
+async function refreshProductEntries() {
+    document.getElementById("product_entry_cards").innerHTML = "";
+    document.getElementById("product_entry_cards").className = "";
+    const productEntries = await getProductEntries();
+    
+    let htmlString = "";
+    let classNameString = "";
+
+    if (productEntries.length === 0) {
+        classNameString = "flex flex-col items-center justify-center min-h-[24rem] p-6";
+        htmlString = `
+            <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+                <img src="{% static 'image/images.png' %}" alt="No product data" class="w-32 h-32 mb-4"/>
+                <p class="text-center text-gray-600 mt-4">No product data available.</p>
+            </div>
+        `;
+    } else {
+        classNameString = "columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-full";
+        productEntries.forEach((item) => {
+            const name = DOMPurify.sanitize(item.fields.name);  
+            const description = DOMPurify.sanitize(item.fields.description);  
+
+            htmlString += `
+            <div class="relative break-inside-avoid">
+                <div class="bg-indigo-200 text-gray-800 p-4 rounded-t-lg border-b-2 border-indigo-300">
+                    <h3 class="font-bold text-xl mb-2">${name}</h3>
+                    <p class="text-gray-600">${description}</p>
+                </div>
+                <div class="p-4">
+                    <p class="font-semibold text-lg mb-2">Stock Quantity</p>
+                    <p class="text-gray-700 mb-2">${item.fields.quantity}</p>
+                    <p class="text-gray-700 font-semibold mb-2">Price</p>
+                    <p class="text-xs inline-block py-1 px-2 bg-gray-300 rounded">${item.fields.price}</p>
+                </div>
+            </div>`;
+        });
+    }
+    document.getElementById("product_entry_cards").className = classNameString;
+    document.getElementById("product_entry_cards").innerHTML = htmlString;
+}
+
+refreshProductEntries();
+```
+
+5.2 AJAX Post
+5.2.1 Buatlah sebuah tombol yang membuka sebuah modal dengan form untuk menambahkan mood.
+- Modal Form: Tambahkan form dalam modal untuk menambahkan data baru. Pastikan form tersebut terhubung dengan tombol yang membuka modal. Berikut kodenya pada `main.html`
+```bash
+...
+<div id="crudModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+    <div id="crudModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-4 border-b rounded-t">
+        <h3 class="text-xl font-semibold text-gray-900">
+          Add New Product Entry
+        </h3>
+        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeModalBtn">
+          <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+...
+```
+
+5.2.2  Buatlah fungsi view baru untuk menambahkan mood baru ke dalam basis data
+- Fungsi `add_product_entry_ajax` pada `views.py`: Berikut ini adalah fungsi untuk menyimpan data baru ke dalam database. Modifikasi fungsi agar membersihkan input data menggunakan `strip_tags` untuk mencegah serangan XSS. (Sisanya sama seperti kode pada 5.1.2)
+```bash
+@csrf_exempt
+@require_POST
+def add_product_entry_ajax(request):
+    product_name = strip_tags(request.POST.get("name"))
+    description = strip_tags(request.POST.get("description"))
+```
+
+5.2.3 Buatlah path `/create-ajax/` yang mengarah ke fungsi view yang baru kamu buat.
+- Menambahkan routing pada `urls.py` dengan import dan menambah urlpatters. (Sama seperti step 5.1.2)
+
+5.2.4 Hubungkan form yang telah kamu buat di dalam modal kamu ke path `/create-ajax/`.
+- JavaScript untuk AJAX POST: Kode di bawah ini digunakan untuk mengirim data dari form modal ke server melalui AJAX POST, kemudian memperbarui data di halaman tanpa reload. Kode pada `main.html`
+```bash
+  function addProductEntry() {
+    fetch("{% url 'main:add_product_entry_ajax' %}", {
+      method: "POST",
+      body: new FormData(document.querySelector('#productEntryForm')),
+    })
+    .then(response => refreshProductEntries())
+
+    document.getElementById("productEntryForm").reset(); 
+    document.querySelector("[data-modal-toggle='crudModal']").click();
+
+    return false;
+  }
+
+  document.getElementById("productEntryForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    addProductEntry();
+  })
+```
