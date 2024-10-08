@@ -7,6 +7,7 @@
 - [Tugas 3](#tugas-3)<br>
 - [Tugas 4](#tugas-4)<br>
 - [Tugas 5](#tugas-5)
+- [Tugas 6](#tugas-6)
 
 ## Data Diri
 **Nama : Muhammad Faizi Ismady Supardjo**<br>
@@ -1405,3 +1406,66 @@ urlpatterns = [
 **Kondisi navbar desktop**
 ![Screenshot 2024-10-02 093123](https://github.com/user-attachments/assets/76da57c0-6eb0-48e7-af1e-e7f166480d42)
 
+# Tugas 6
+- [Contents](#contents)<br>
+
+**1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!**
+- Interaktivitas dan responsivitas<br>
+JavaScript membuat  web menjadi lebih interaktif dan responsif. seperti
+elemen dropdown, transisi, dll.
+
+- Pengolahan data sisi klien<br>
+JavaScript membuat data dapat diproses di sisi klien (browser pengguna), mengurangi 
+beban server dan mempercepat aplikasi.
+
+- Pembaharuan dinamis<br>
+Dengan JavaScript, konten page dapat diperbarui secara dinamis, tidak perlu merefresh halaman
+contohnya menggunakan teknik seperti AJAX.
+
+- Crossplatform compatibility<br>
+JavaScript dapat dijalankan pada banyak browser tanpa perlu konfigurasi lanjutan.
+
+- Integrasi dengan teknologi lain<br>
+JavaScript dapat diintegrasikan dengan berbagai macam teknologi seperti HTML dan CSS. Selain itu, JS
+mendukung berbagai framework dan library.
+
+**2. Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()!` Apa yang akan terjadi jika kita tidak menggunakan `await`?**<br>
+Fungsi `await` ketika digunakan dengan `fetch()` adalah untuk memastikan bahwa JavaScript menunggu 
+hingga operasi `fetch()` selesai sebelum melanjutkan eksekusi kode berikutnya. `fetch()` sendiri adalah 
+fungsi asinkron yang mengembalikan sebuah Promise. Dengan menggunakan `await`, kita menunggu 
+respons dari Promise tersebut sebelum melanjutkan ke langkah berikutnya dalam kode.
+
+Apabila kita tidak menggunakan `await` atau fungsi lain yang sejenis (seperti `.then()`), maka JavaScript akan 
+melanjutkan eksekusi kode tanpa menunggu hasil dari operasi asinkron tersebut. Dalam kasus ini, kode bisa
+terjalankan, walaupun data yang diperlukan belum selesai di proses.
+
+**3. Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?**<br>
+Kita perlu menggunakan decorator `@csrf_exempt` pada view yang digunakan untuk AJAX POST dalam Django 
+ketika kita tidak ingin memeriksa token CSRF (Cross-Site Request Forgery) untuk permintaan tertentu. Beberapa alasan 
+digunakannya antara lain:
+- Mencegah Kesalahan CSRF<br>
+Django secara default menerapkan perlindungan CSRF pada semua permintaan POST untuk mencegah 
+serangan CSRF, di mana pengguna yang tidak sah mencoba untuk mengirimkan permintaan tanpa izin. 
+Jika kita tidak menonaktifkan pemeriksaan CSRF pada view AJAX, dan tidak mengirimkan token CSRF 
+dengan benar dari sisi klien, kita akan mendapatkan kesalahan "403 Forbidden".
+
+- Kemudahan Implementasi<br>
+Dalam beberapa kasus, terutama pada aplikasi yang tidak menangani data sensitif atau ketika keamanan 
+CSRF sudah diatur dengan cara lain, kita dapat memilih untuk menggunakan `@csrf_exempt` untuk 
+menghindari penanganan manual token CSRF pada permintaan AJAX.
+
+- AJAX dari Domain yang Sama (Same-Origin Requests)<br>
+Ketika kita menggunakan AJAX pada domain yang sama, kita mungkin merasa aman untuk 
+menonaktifkan pemeriksaan CSRF karena risikonya lebih rendah dibandingkan dengan permintaan lintas 
+domain. Namun, ini hanya aman jika aplikasi kita tidak terpapar terhadap risiko serangan CSRF.
+
+Meski demikian, menonaktifkan CSRF dengan menggunakan `@csrf_exempt` juga membuka potensi risiko 
+keamanan. Oleh karena itu, penggunaan decorator ini harus dipertimbangkan dengan hati-hati.
+
+**4. Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?**<br>
+Validasi data di backend wajib dilakukan untuk keamanan, karena pengguna bisa memanipulasi data di sisi 
+frontend. Backend memastikan data konsisten dan sesuai standar, serta tidak bergantung pada fitur browser. 
+Validasi kompleks juga lebih efektif dilakukan di backend. Frontend validation tetap penting untuk pengalaman 
+pengguna yang lebih responsif, tapi tidak cukup untuk menjamin keamanan data.
+
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!**
