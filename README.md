@@ -1508,7 +1508,123 @@ urlpatterns = [
 ]
 ```
 
+- Pada `views.py` menghapus line ini pada `show_main`
+```bash
+product_entries = Product.objects.filter(user=request.user)
+'product_entries': product_entries,
+```
+
+- Pada fungsi `show_json` dan `show_xml` menambahkan baris berikut
+```bash
+data = Product.objects.filter(user=request.user)
+```
+
+- Pada `main.html` menghapus block conditional dan menggantinya dengan line berikut
+```bash
+ <div id="product_entry_cards"></div>
+```
+
+- Pada `main.html` membuat block script dan didalamnya diisi kode berikut
+```bash
+async function getProductEntries() {
+        return fetch("{% url 'main:show_json' %}").then((res) => res.json());
+    }
+
+async function refreshProductEntries() {
+    document.getElementById("product_entry_cards").innerHTML = "";
+    document.getElementById("product_entry_cards").className = "";
+    const productEntries = await getProductEntries();
+
+    let htmlString = "";
+    let classNameString = "";
+
+    if (productEntries.length === 0) {
+        classNameString = "flex flex-col items-center justify-center min-h-[24rem] p-6";
+        htmlString = `
+            <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+                <img src="{% static 'image/images.png' %}" alt="Sad face" class="w-32 h-32 mb-4"/>
+                <p class="text-center text-gray-600 mt-4">No product data available.</p>
+            </div>
+        `;
+    } else {
+      classNameString = "columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-full";
+      productEntries.forEach((item) => {
+          const name = DOMPurify.sanitize(item.fields.name);  // sanitize the name
+          const description = DOMPurify.sanitize(item.fields.description);  // sanitize the description
+
+          htmlString += `
+          <div class="relative break-inside-avoid">
+            <div class="absolute top-2 z-10 left-1/2 -translate-x-1/2 flex items-center -space-x-2">
+              <div class="w-[3rem] h-8 bg-gray-800 rounded-md opacity-80 -rotate-90"></div>
+              <div class="w-[3rem] h-8 bg-gray-800 rounded-md opacity-80 -rotate-90"></div>
+            </div>
+            <div class="relative top-5 bg-gray-800 shadow-md rounded-lg mb-6 break-inside-avoid flex flex-col border-2 border-gray-700 transform rotate-1 hover:rotate-0 transition-transform duration-300">
+              <div class="bg-gray-700 text-white p-4 rounded-t-lg border-b-2 border-gray-600">
+                <h3 class="font-bold text-xl mb-2">${name}</h3>
+              </div>
+              <div class="p-4">
+                <p class="font-semibold text-gray-200 mb-2">Product Description</p> 
+                <p class="text-gray-400 mb-2">
+                  <span class="bg-[linear-gradient(to_bottom,transparent_0%,transparent_calc(100%_-_1px),#4B5563_calc(100%_-_1px))] bg-[length:100%_1.5rem] pb-1">${description}</span>
+                </p>
+                <div class="mt-4">
+                  <p class="text-gray-200 font-semibold mb-2">Stock Quantity</p>
+                  <div class="relative pt-1">
+                    <div class="flex mb-2 items-center justify-between">
+                      <div>
+                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-300 bg-gray-600">
+                          ${item.fields.quantity > 100 ? '100+' : item.fields.quantity}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <p class="text-gray-200 font-semibold mb-2">Price</p>
+                  <div class="relative pt-1">
+                    <div class="flex mb-2 items-center justify-between">
+                      <div>
+                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-300 bg-gray-600">
+                          ${item.fields.price}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="absolute top-0 -right-4 flex space-x-1">
+              <a href="/edit-product/${item.pk}" class="bg-yellow-500 hover:bg-yellow-600 text-white rounded-full p-2 transition duration-300 shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                </svg>
+              </a>
+              <a href="/delete/${item.pk}" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-2 transition duration-300 shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          `;
+      });
+    }
+    document.getElementById("product_entry_cards").className = classNameString;
+    document.getElementById("product_entry_cards").innerHTML = htmlString;
+}
+```
 5.1.2 Lakukan pengambilan data mood menggunakan AJAX GET. Pastikan bahwa data yang diambil hanyalah data milik pengguna yang logged-in.
+- Memastikan data yang diambil adalah data user logged in dengan argumen berikut pada `add_product_entry_ajax`
+```bash
+new_product = Product(
+        name=product_name, 
+        description=description,
+        price=price,
+        quantity=quantity,
+        user=user
+    )
+    new_product.save()
+```
 - Fungsi JavaScript untuk GET Data: Berikut ini adalah fungsi JavaScript yang digunakan untuk mengambil data dari server menggunakan AJAX `GET` dan mengupdate card di halaman utama.
 ```bash
 async function getProductEntries() {
@@ -1579,6 +1695,45 @@ refreshProductEntries();
         </button>
       </div>
 ...
+```
+
+- Tombol membuka modal ada pada `navbar.html`, sebagai berikut
+```bash
+<button data-modal-target="crudModal" data-modal-toggle="crudModal" class="bg-indigo-700 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 mr-4" onclick="showModal();">
+            Add New Product by AJAX
+          </button>
+```
+
+- Pada `main.html` membuat fungsi apabila user membuka atau menutup modal.
+```bash
+const modal = document.getElementById('crudModal');
+  const modalContent = document.getElementById('crudModalContent');
+
+  function showModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modal.classList.remove('hidden'); 
+      setTimeout(() => {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+      }, 50); 
+  }
+
+  function hideModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modalContent.classList.remove('opacity-100', 'scale-100');
+      modalContent.classList.add('opacity-0', 'scale-95');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 150); 
+  }
+
+  document.getElementById("cancelButton").addEventListener("click", hideModal);
+  document.getElementById("closeModalBtn").addEventListener("click", hideModal);
 ```
 
 5.2.2  Buatlah fungsi view baru untuk menambahkan mood baru ke dalam basis data
